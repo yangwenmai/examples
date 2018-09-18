@@ -1,0 +1,30 @@
+language: go
+sudo: false
+
+notifications:
+  slack: maiyang:7VvXYbpv9dJ3fcRyxtqKjIqZ
+  on_success: change
+  on_failure: always
+
+go:
+  - 1.9.2
+
+install:
+  - go get github.com/go-playground/overalls
+  - go get github.com/mattn/goveralls
+  - go get github.com/smartystreets/goconvey
+  - mkdir -p $GOPATH/src/github.com/yangwenmai
+  - cd $GOPATH/src/github.com/yangwenmai/jaeger-opentracing-examples
+
+script:
+    - overalls -project=github.com/yangwenmai/jaeger-opentracing-examples -covermode=count -ignore='.git,vendor'
+    - goveralls -coverprofile=overalls.coverprofile -service=travis-ci -repotoken $COVERALLS_TOKEN
+    - go test -race -coverprofile=coverage.txt -covermode=atomic
+    - go test ./...
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    secure: "nKAm9gIY6JZ9DCrqPC5ZtAIeeO0/aHdsIWV182mD7JAntkm2x5FAEj6GvzxAp8S/hMZ2RbzDlmNZjO//vdAjb9VK1UXOYLWDDajFNF3Nr/voMYXSLxWxngeyQOeCAS4R2rhjohhYKfwaPxpCY+SzPuTOLWP0+SRK4gvpqTqno02pKDFb2lwrCtxo1io2R60AuJ3eOYrAIfNmB46WXA4VMSGSeO+hKtP88cEqgtrKHCgSLTj2vA5DtU2Ozw/gyq5mNzsFFRKA4pk+4PN/TrzL8A29yLMTXhlqf5AloeEKOn2GNmaS4KdmOGMqHTmbAYwZKpqKusw+Zz0FFNpCIIEoEUkW44VJnFuRA5d7xHVg7pxgaGn0ckB/y2bN+Bmc1cCg+r5V25nWA3GRI5xLUwFt99YKG3uA6XLOksBv83m9Fewg2N790vEObnZQXOWw8EkerqK6senvSR6kst80wOu2dN5Z022El2U3xHkB45xubOYZqDCXxTtZehjpkAygZrNBmAG123jmx57d2b8PhgaC/+3oUeHjEydK1S3ZaEsxH2/VwwBpkwJItYu6Zq4RZvDST++ULmgszNu+NmlUWUWFoIxQzlRnfUmDKbLsIfSY1B3enmvrB03JbkxCUrYL/8wwdM46vOj42S90A8hqD+h8XwlOpmFTKAaUQB5Ql71lIoU="
