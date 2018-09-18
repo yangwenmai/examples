@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my-mongodb
+  labels:
+    name.service: my-mongodb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      createTimestamp: null
+      labels:
+        name.service: my-mongodb
+    spec:
+      containers:
+      - args:
+        - --smallfiles
+        image: mongo:latest
+        name: my-mongodb
+        ports:
+          - containerPort: 27100
+        resources: {}
+        imagePullPolicy: IfNotPresent
+status: {}
