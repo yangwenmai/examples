@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/yangwenmai/examples/tts-grpc-k8s/api"
+	pb "github.com/yangwenmai/examples/tts-grpc-k8s/pb"
 	grpc "google.golang.org/grpc"
 )
 
