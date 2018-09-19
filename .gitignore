@@ -11,3 +11,5 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 .DS_Store
+tts-grpc-k8s/server/say
+tts-grpc-k8s/client/data/output.wav
