@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -16,12 +16,14 @@ spec:
     spec:
       containers:
       - name: api
-        image: local/api
-        imagePullPolicy: Never
+        image: yangwen13/api:0.1
+        imagePullPolicy: Always
         ports:
         - name: api-service
           containerPort: 3000
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:

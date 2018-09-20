@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: gcd-deployment
@@ -9,6 +9,13 @@ spec:
     matchLabels:
       app: gcd
   replicas: 3
+  revisionHistoryLimit: 5
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
+  minReadySeconds: 5
   template:
     metadata:
       labels:
@@ -16,12 +23,17 @@ spec:
     spec:
       containers:
       - name: gcd
-        image: local/gcd
-        imagePullPolicy: Never
+        image: yangwen13/gcd:0.1
+        imagePullPolicy: Always
         ports:
         - name: gcd-service
           containerPort: 3000
+        env:
+            - name: FOR_GODS_SAKE_PLEASE_REDEPLOY
+              value: '2'
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,3 +44,4 @@ spec:
   ports:
   - port: 3000
     targetPort: gcd-service
+  type: LoadBalancer

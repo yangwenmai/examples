@@ -1,0 +1,73 @@
+workspace:
+    base: /go
+    path: src/gogs.maiyang.me/developer-learning/api
+
+pipeline:
+  setup:
+   image: docker:git
+   commands:
+       #- git clone http://192.168.31.213/developer-learning/pb.git /go/src/gogs.maiyang.me/developer-learning/pb
+    - git clone http://192.168.0.56/developer-learning/pb.git /go/src/gogs.maiyang.me/developer-learning/pb
+  
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - /go/src/github.com
+      - /go/src/golang.org
+      - /go/src/google.golang.org
+    volumes:
+      - /tmp/cache:/cache
+
+  build:
+    image: golang:1.10.3
+    commands:
+    - pwd
+    - go get
+      #- go get -u golang.org/x/lint/golint
+      #- golint ./...
+      #- go vet ./...
+      #- go test ./...
+    - GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build
+
+  build_image:
+    image: plugins/docker
+    repo: yangwen13/api
+    dockerfile: Dockerfile
+    secrets: [docker_username, docker_password]
+    tags: [0.1]
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - /go/src/github.com
+      - /go/src/golang.org
+      - /go/src/google.golang.org
+    volumes:
+      - /tmp/cache:/cache
+
+  run_server:
+    image: yangwen13/api:0.1
+    detach: true
+
+  # jenkins:
+  #   image: appleboy/drone-jenkins
+  #   url: http://192.168.0.56:8080
+  #   user: maiyang
+  #   token: 
+  #   job: drone-jenkins-plugin-job-api
+
+  deploy:
+    image: yangwen13/drone-kubernetes
+    #image: quay.io/honestbee/drone-kubernetes
+    kubernetes_template: k8s-api.yaml
+    kubernetes_namespace: default
+    secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
+
+  slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/
+    when:
+        status: [success, failure]
+

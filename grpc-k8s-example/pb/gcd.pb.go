@@ -24,8 +24,8 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type GCDRequest struct {
-	A                    uint64   `protobuf:"varint,1,opt,name=a" json:"a,omitempty"`
-	B                    uint64   `protobuf:"varint,2,opt,name=b" json:"b,omitempty"`
+	A                    uint64   `protobuf:"varint,1,opt,name=a,proto3" json:"a,omitempty"`
+	B                    uint64   `protobuf:"varint,2,opt,name=b,proto3" json:"b,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -35,7 +35,7 @@ func (m *GCDRequest) Reset()         { *m = GCDRequest{} }
 func (m *GCDRequest) String() string { return proto.CompactTextString(m) }
 func (*GCDRequest) ProtoMessage()    {}
 func (*GCDRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_gcd_745f03e6c6de2031, []int{0}
+	return fileDescriptor_178e0e204cde370a, []int{0}
 }
 func (m *GCDRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GCDRequest.Unmarshal(m, b)
@@ -70,7 +70,8 @@ func (m *GCDRequest) GetB() uint64 {
 }
 
 type GCDResponse struct {
-	Result               uint64   `protobuf:"varint,1,opt,name=result" json:"result,omitempty"`
+	Result               uint64   `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	Version              string   `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -80,7 +81,7 @@ func (m *GCDResponse) Reset()         { *m = GCDResponse{} }
 func (m *GCDResponse) String() string { return proto.CompactTextString(m) }
 func (*GCDResponse) ProtoMessage()    {}
 func (*GCDResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_gcd_745f03e6c6de2031, []int{1}
+	return fileDescriptor_178e0e204cde370a, []int{1}
 }
 func (m *GCDResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GCDResponse.Unmarshal(m, b)
@@ -107,6 +108,13 @@ func (m *GCDResponse) GetResult() uint64 {
 	return 0
 }
 
+func (m *GCDResponse) GetVersion() string {
+	if m != nil {
+		return m.Version
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*GCDRequest)(nil), "pb.GCDRequest")
 	proto.RegisterType((*GCDResponse)(nil), "pb.GCDResponse")
@@ -120,8 +128,9 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for GCDService service
-
+// GCDServiceClient is the client API for GCDService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GCDServiceClient interface {
 	Compute(ctx context.Context, in *GCDRequest, opts ...grpc.CallOption) (*GCDResponse, error)
 }
@@ -136,15 +145,14 @@ func NewGCDServiceClient(cc *grpc.ClientConn) GCDServiceClient {
 
 func (c *gCDServiceClient) Compute(ctx context.Context, in *GCDRequest, opts ...grpc.CallOption) (*GCDResponse, error) {
 	out := new(GCDResponse)
-	err := grpc.Invoke(ctx, "/pb.GCDService/Compute", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.GCDService/Compute", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// Server API for GCDService service
-
+// GCDServiceServer is the server API for GCDService service.
 type GCDServiceServer interface {
 	Compute(context.Context, *GCDRequest) (*GCDResponse, error)
 }
@@ -184,17 +192,19 @@ var _GCDService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "gcd.proto",
 }
 
-func init() { proto.RegisterFile("gcd.proto", fileDescriptor_gcd_745f03e6c6de2031) }
+func init() { proto.RegisterFile("gcd.proto", fileDescriptor_178e0e204cde370a) }
 
-var fileDescriptor_gcd_745f03e6c6de2031 = []byte{
-	// 144 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_178e0e204cde370a = []byte{
+	// 161 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0x4f, 0x4e, 0xd1,
 	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2a, 0x48, 0x52, 0xd2, 0xe0, 0xe2, 0x72, 0x77, 0x76,
 	0x09, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0xe2, 0xe1, 0x62, 0x4c, 0x94, 0x60, 0x54, 0x60,
-	0xd4, 0x60, 0x09, 0x62, 0x4c, 0x04, 0xf1, 0x92, 0x24, 0x98, 0x20, 0xbc, 0x24, 0x25, 0x55, 0x2e,
+	0xd4, 0x60, 0x09, 0x62, 0x4c, 0x04, 0xf1, 0x92, 0x24, 0x98, 0x20, 0xbc, 0x24, 0x25, 0x7b, 0x2e,
 	0x6e, 0xb0, 0xca, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x31, 0x2e, 0xb6, 0xa2, 0xd4, 0xe2,
-	0xd2, 0x9c, 0x12, 0xa8, 0x7a, 0x28, 0xcf, 0xc8, 0x0a, 0x6c, 0x60, 0x70, 0x6a, 0x51, 0x59, 0x66,
-	0x72, 0xaa, 0x90, 0x0e, 0x17, 0xbb, 0x73, 0x7e, 0x6e, 0x41, 0x69, 0x49, 0xaa, 0x10, 0x9f, 0x5e,
-	0x41, 0x92, 0x1e, 0xc2, 0x2e, 0x29, 0x7e, 0x38, 0x1f, 0x62, 0xa2, 0x12, 0x43, 0x12, 0x1b, 0xd8,
-	0x5d, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x00, 0x5f, 0x20, 0xdc, 0xa4, 0x00, 0x00, 0x00,
+	0xd2, 0x9c, 0x12, 0xa8, 0x7a, 0x28, 0x4f, 0x48, 0x82, 0x8b, 0xbd, 0x2c, 0xb5, 0xa8, 0x38, 0x33,
+	0x3f, 0x0f, 0xac, 0x95, 0x33, 0x08, 0xc6, 0x35, 0xb2, 0x02, 0x5b, 0x15, 0x9c, 0x5a, 0x54, 0x96,
+	0x99, 0x9c, 0x2a, 0xa4, 0xc3, 0xc5, 0xee, 0x9c, 0x9f, 0x5b, 0x50, 0x5a, 0x92, 0x2a, 0xc4, 0xa7,
+	0x57, 0x90, 0xa4, 0x87, 0x70, 0x85, 0x14, 0x3f, 0x9c, 0x0f, 0xb1, 0x4b, 0x89, 0x21, 0x89, 0x0d,
+	0xec, 0x62, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x4d, 0xdf, 0xaf, 0x24, 0xbe, 0x00, 0x00,
+	0x00,
 }

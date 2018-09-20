@@ -9,6 +9,7 @@ message GCDRequest {
 
 message GCDResponse {
   uint64 result = 1;
+  string version = 2;
 }
 
 service GCDService {
