@@ -1,3 +1,13 @@
+http://mysql.taobao.org/monthly/2018/11/01/             POLARDB · 理论基础 · 敢问路在何方 — 论B+树索引的演进方向（上）
+http://mysql.taobao.org/monthly/2018/11/02/             Database · 原理介绍 · Google Percolator 分布式事务实现原理解读
+http://mysql.taobao.org/monthly/2018/11/03/             Database · 原理介绍 · 关于Paxos 幽灵复现问题
+http://mysql.taobao.org/monthly/2018/11/04/             MySQL · 引擎特性 · InnoDB MVCC 相关实现
+http://mysql.taobao.org/monthly/2018/11/05/             MySQL · RocksDB · 数据的读取(一)
+http://mysql.taobao.org/monthly/2018/11/06/             PgSQL · 最佳实践 · EXPLAIN 使用浅析
+http://mysql.taobao.org/monthly/2018/11/07/             MSSQL · 最佳实践 · 列加密查询性能问题及解决方案
+http://mysql.taobao.org/monthly/2018/11/08/             MySQL · 最佳实践 · 性能问题多维度诊断
+http://mysql.taobao.org/monthly/2018/11/09/             MySQL · 最佳实践 · 8.0 CTE和窗口函数的用法
+http://mysql.taobao.org/monthly/2018/11/10/             PgSQL · 应用案例 · Heap Only Tuple (降低UPDATE引入的索引写IO放大)
 http://mysql.taobao.org/monthly/2018/10/01/             POLARDB · 最佳实践 · POLARDB不得不知道的秘密
 http://mysql.taobao.org/monthly/2018/10/02/             MySQL · 引擎特性 · Cost Model,直方图及优化器开销优化
 http://mysql.taobao.org/monthly/2018/10/03/             MSSQL · 最佳实践 · 使用混合密钥实现列加密
