@@ -13,7 +13,7 @@ var HandleHelloWorld = func(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	req := httptest.NewRequest("GET", "http://example.com/foo", nil)
+	req := httptest.NewRequest("GET", "http://xxx.com/foo", nil)
 	w := httptest.NewRecorder()
 	HandleHelloWorld(w, req)
 

@@ -13,7 +13,7 @@ func main() {
 	engine.GET("/hello", func(c *gin.Context) { c.String(http.StatusOK, "Hello") })
 	engine.GET("/world", func(c *gin.Context) { c.String(http.StatusOK, "world") })
 
-	req := httptest.NewRequest(http.MethodGet, "/hello", nil)
+	req := httptest.NewRequest(http.MethodGet, "/world", nil)
 	w := httptest.NewRecorder()
 
 	engine.ServeHTTP(w, req)
