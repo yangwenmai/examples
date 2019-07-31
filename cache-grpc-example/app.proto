@@ -1,0 +1,20 @@
+syntax = "proto3"
+package rpc;
+service Cache {
+	rpc Store(StoreReq) returns (StoreResp) {}
+	rpc Get(GetReq) returns (GetResp) {}
+}
+
+message StoreReq {
+	string key = 1;
+	bytes val = 2;
+}
+messsage StoreResp {
+	
+}
+message GetReq {
+	string key = 1;
+}
+message GetResp {
+	bytes val = 1;
+}
