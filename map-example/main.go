@@ -1,3 +1,4 @@
+// code from https://blog.cyeam.com/json/2017/11/02/go-map-delete
 package main
 
 var intMap map[int]int
