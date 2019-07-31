@@ -1,5 +1,9 @@
-// code from https://blog.cyeam.com/json/2017/11/02/go-map-delete
 package main
+
+import (
+	"runtime"
+	"log"
+)
 
 var intMap map[int]int
 var cnt = 8192
