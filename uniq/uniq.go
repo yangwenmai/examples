@@ -32,3 +32,15 @@ func uniq2(list []string) []string {
 	}
 	return ret
 }
+
+func uniq3(list []string) []string {
+	m := map[string]struct{}{}
+	var ret []string
+	for _, l := range list {
+		if _, ok := m[l]; !ok {
+			ret = append(ret, l)
+			m[l] = struct{}{}
+		}
+	}
+	return ret
+}
