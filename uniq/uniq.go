@@ -44,3 +44,20 @@ func uniq3(list []string) []string {
 	}
 	return ret
 }
+
+func uniq4(list []string) []string {
+	m := map[string]struct{}{}
+	for _, l := range list {
+		if _, ok := m[l]; ok {
+			continue
+		}
+		m[l] = struct{}{}
+	}
+	out := make([]string, len(m))
+	i := 0
+	for v := range m {
+		out[i] = v
+		i++
+	}
+	return out
+}

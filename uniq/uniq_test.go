@@ -7,6 +7,12 @@ var list = []string{"fdksfjlds", "1", "3", "4", "flkdsjkf", "2", "3"}
 func TestUniq(t *testing.T) {
 	ret := uniq(list)
 	t.Log(ret)
+	ret = uniq2(list)
+	t.Log(ret)
+	ret = uniq3(list)
+	t.Log(ret)
+	ret = uniq4(list)
+	t.Log(ret)
 }
 
 // goos: darwin
@@ -42,5 +48,12 @@ func BenchmarkUniq2(b *testing.B) {
 func BenchmarkUniq3(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		uniq3(list)
+	}
+}
+
+// BenchmarkUniq4-8   	 3277647	       325 ns/op
+func BenchmarkUniq4(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		uniq4(list)
 	}
 }
