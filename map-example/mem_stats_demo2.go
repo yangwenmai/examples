@@ -3,48 +3,39 @@ package main
 import (
 	"runtime"
 	"log"
+	"sync"
 )
 
-var intMapMap map[int]map[int]int
+var intMap *sync.Map
 var cnt = 8192
 
 func main() {
 	printMemStats()
 	
-	initMapMap()
+	initMap()
 	runtime.GC()
 	printMemStats()
 	
-	fillMapMap()
-	runtime.GC()
-	printMemStats()
-	log.Println(len(intMapMap))
+	log.Println(intMap)
 	for i := 0; i < cnt; i++ {
-		delete(intMapMap, i)
+		intMap.Delete(i)
 	}
-	log.Println(len(intMapMap))
+	log.Println(intMap)
 	
 	runtime.GC()
 	printMemStats()
 	
-	intMapMap = nil
+	// time.Sleep(1 *time.Minute)
+	// intMap = nil
 	printMemStats()
 	runtime.GC()
 	printMemStats()
 }
 
-func initMapMap() {
-	intMapMap = make(map[int]map[int]int, cnt)
+func initMap() {
+	intMap = new(sync.Map)
 	for i := 0; i < cnt; i++ {
-		intMapMap[i] = make(map[int]int, cnt)
-	}
-}
-
-func fillMapMap() {
-	for i := 0; i < cnt; i++ {
-		for j := 0; j < cnt; j++ {
-			intMapMap[i][j] = j
-		}
+		intMap.Store(i, i)
 	}
 }
 

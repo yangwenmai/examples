@@ -22,6 +22,7 @@ func main() {
 		delete(a, k)
 	}
 	
+	// runtime.GC()
 	debug.FreeOSMemory()
 	fmt.Printf("len(a)=%v\n", len(a))
 	
