@@ -13,6 +13,8 @@ PASS
 ok  	command-line-arguments	6.464s
 ```
 
+为什么 Uniq4 是最快的呢？
+
 
 from 
 

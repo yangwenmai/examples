@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-var list = []string{"fdksfjlds", "1", "3", "4", "flkdsjkf", "2", "3"}
+var list = []string{"fdksfjlds", "1", "fdksfjlds", "3", "4", "flkdsjkf", "2", "3"}
 
 func TestUniq(t *testing.T) {
 	ret := uniq(list)
